@@ -1,11 +1,19 @@
 import { Injectable } from '@nestjs/common';
 import { CreateMeasureDto } from './dto/create-measure.dto';
 import { UpdateMeasureDto } from './dto/update-measure.dto';
+import { Prisma } from '@prisma/client';
+import { PrismaService } from 'src/common/prisma.service';
 
 @Injectable()
 export class MeasuresService {
-  create(createMeasureDto: CreateMeasureDto) {
-    return 'This action adds a new measure';
+  constructor(private prisma: PrismaService) {}
+  async create(createMeasureDto: Prisma.ShooperCreateInput) {
+    const createMeasure = await this.prisma.shooper.create({
+      data: {
+        ...createMeasureDto,
+      },
+    });
+    return createMeasure;
   }
 
   findAll() {
