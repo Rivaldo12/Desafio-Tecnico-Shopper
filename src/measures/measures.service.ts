@@ -16,8 +16,9 @@ export class MeasuresService {
     return createMeasure;
   }
 
-  findAll() {
-    return `This action returns all measures`;
+  async findAll() {
+    const getAll = this.prisma.shooper.findMany();
+    return getAll;
   }
 
   findOne(id: number) {
